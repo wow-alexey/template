@@ -1,0 +1,75 @@
+@function has-value($val) {
+  @if $val == null or $val == none {
+    @return false;
+  }
+  @if type-of($val) == 'number' and strip-unit($val) == 0 {
+    @return false;
+  }
+  @if type-of($val) == 'list' and length($val) == 0 {
+    @return false;
+  }
+  @return true;
+}
+
+@function get-side($val, $side) {
+  $length: length($val);
+
+  @if $length == 1 {
+    @return $val;
+  }
+  @if $length == 2 {
+    @return map-get((
+            top: nth($val, 1),
+            bottom: nth($val, 1),
+            left: nth($val, 2),
+            right: nth($val, 2),
+    ), $side);
+  }
+  @if $length == 3 {
+    @return map-get((
+            top: nth($val, 1),
+            left: nth($val, 2),
+            right: nth($val, 2),
+            bottom: nth($val, 3),
+    ), $side);
+  }
+  @if $length == 4 {
+    @return map-get((
+            top: nth($val, 1),
+            right: nth($val, 2),
+            bottom: nth($val, 3),
+            left: nth($val, 4),
+    ), $side);
+  }
+}
+
+@function get-border-value($val, $elem) {
+  // Find the width, style, or color and return it
+  @each $v in $val {
+    $type: type-of($v);
+    @if $elem == width and $type == 'number' {
+      @return $v;
+    }
+    @if $elem == style and $type == 'string' {
+      @return $v;
+    }
+    @if $elem == color and $type == 'color' {
+      @return $v;
+    }
+  }
+
+  $defaults: (
+          width: 0,
+          style: solid,
+          color: #000,
+  );
+
+  @return map-get($defaults, $elem);
+}
+
+@function map-deep-get($map, $keys...) {
+  @each $key in $keys {
+    $map: map-get($map, $key);
+  }
+  @return $map;
+}

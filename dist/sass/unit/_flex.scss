@@ -1,0 +1,58 @@
+$-zf-flex-justify: (
+        'left': flex-start,
+        'right': flex-end,
+        'center': center,
+        'justify': space-between,
+        'spaced': space-around,
+);
+
+$-zf-flex-align: (
+        'top': flex-start,
+        'bottom': flex-end,
+        'middle': center,
+        'stretch': stretch,
+);
+
+@mixin flex {
+  display: flex;
+}
+
+@mixin flex-align($x: null, $y: null) {
+  @if $x {
+    @if map-has-key($-zf-flex-justify, $x) {
+      $x: map-get($-zf-flex-justify, $x);
+    }
+    @else {
+      @warn 'flex-grid-row-align(): #{$x} is not a valid value for horizontal alignment. Use left, right, center, justify, or spaced.'
+    }
+  }
+
+  @if $y {
+    @if map-has-key($-zf-flex-align, $y) {
+      $y: map-get($-zf-flex-align, $y);
+    }
+    @else {
+      @warn 'flex-grid-row-align(): #{$y} is not a valid value for vertical alignment. Use top, bottom, middle, or stretch.'
+    }
+  }
+
+  justify-content: $x;
+  align-items: $y;
+}
+
+@mixin flex-align-self($y: null) {
+  @if $y {
+    @if map-has-key($-zf-flex-align, $y) {
+      $y: map-get($-zf-flex-align, $y);
+    }
+    @else {
+      @warn 'flex-grid-column-align(): #{$y} is not a valid value for alignment. Use top, bottom, middle, or stretch.'
+    }
+  }
+
+  align-self: $y;
+}
+
+@mixin flex-order($order: 0) {
+  order: $order;
+}

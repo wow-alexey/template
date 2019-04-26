@@ -1,0 +1,36 @@
+$dark-black: #000;
+$white: #fff;
+$black: #353535;
+$hover-black: #161616;
+$gray: #efefef;
+$input-color: #bebebe;
+$bg-color: #8f8f8f;
+$light-gray: #eaeaea;
+$input-bg: #f7f7f7;
+$border-color: #e9e9e9;
+
+$gray-font: #ababab;
+$gold: #6e5d01;
+$fast-transition: .15s ease;
+$transition: .3s ease;
+$slow-transition: .6s ease;
+
+$box-shadow: rem-calc(0 6 30 1) rgba(0, 0, 0, 0.05);
+
+@mixin add-foundation-colors() {
+  @if map-has-key($foundation-palette, primary) {
+    $primary-color: map-get($foundation-palette, primary) !global;
+  }
+  @if map-has-key($foundation-palette, secondary) {
+    $secondary-color: map-get($foundation-palette, secondary) !global;
+  }
+  @if map-has-key($foundation-palette, success) {
+    $success-color: map-get($foundation-palette, success) !global;
+  }
+  @if map-has-key($foundation-palette, warning) {
+    $warning-color: map-get($foundation-palette, warning) !global;
+  }
+  @if map-has-key($foundation-palette, alert) {
+    $alert-color: map-get($foundation-palette, alert) !global;
+  }
+}

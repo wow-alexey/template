@@ -1,0 +1,125 @@
+// Global icons mixin
+@mixin icon($name, $width, $height, $position, $margin: 0, $align: middle) {
+  @if ($position == right) {
+    &:after {
+      display: inline-block;
+      width: $width;
+      height: $height;
+      margin-left: $margin;
+      vertical-align: $align;
+      background: url('../img/#{$name}-icon.svg') no-repeat center / $width $height;
+      content: '';
+    }
+  }
+  @if ($position == left) {
+    &:before {
+      display: inline-block;
+      width: $width;
+      height: $height;
+      margin-right: $margin;
+      vertical-align: $align;
+      background: url('../img/#{$name}-icon.svg') no-repeat center / $width $height;
+      content: '';
+    }
+  }
+  @if ($position == inherit) {
+    display: inline-block;
+    width: $width;
+    height: $height;
+    vertical-align: $align;
+    background: url('../img/#{$name}-icon.svg') no-repeat center / $width $height;
+  }
+  @if ($position == absolute) {
+    &:before {
+      content: '';
+      background: url('../img/#{$name}-icon.svg') no-repeat center / $width $height;
+      position: absolute;
+      display: inline-block;
+      width: $width;
+      height: $height;
+    }
+  }
+}
+
+// Containers
+@mixin containers {
+  margin-left: auto;
+  margin-right: auto;
+  @include breakpoint(large){
+    max-width: rem-calc(1100);
+  }
+  @include breakpoint(xlarge){
+    max-width: rem-calc(1160);
+  }
+  @include breakpoint(xxlarge){
+    max-width: rem-calc(1400);
+  }
+  @include breakpoint(xxxlarge){
+    max-width: rem-calc(1650);
+  }
+}
+
+// burger
+@mixin burger($width, $height, $lineHeight) {
+  position: relative;
+  cursor: pointer;
+  width: rem-calc($width);
+  height: rem-calc($height);
+  &:after, &:before {
+    content: '';
+    position: absolute;
+    background: $black;
+    left: 50%;
+    width: 100%;
+    height: rem-calc($lineHeight);
+    transform: translateX(-50%);
+  }
+  &:after {
+    top: 0;
+  }
+  &:before {
+    bottom: 0;
+  }
+  span {
+    position: absolute;
+    background: $black;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    height: rem-calc($lineHeight);
+    transform: translate(-50%, 0);
+    margin-top: calc(#{$lineHeight}px / -2);
+  }
+
+  &.opened {
+    &:after, &:before {
+      top: 50%;
+      bottom: auto;
+    }
+    &:after {
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+    &:before {
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    span {
+      opacity: 0;
+    }
+  }
+}
+
+// Placeholder
+@mixin placeholder {
+  &::-webkit-input-placeholder {
+    @content
+  }
+  &:-moz-placeholder {
+    @content
+  }
+  &::-moz-placeholder {
+    @content
+  }
+  &:-ms-input-placeholder {
+    @content
+  }
+}
